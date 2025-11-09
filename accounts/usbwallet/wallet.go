@@ -564,7 +564,7 @@ func (w *wallet) SignData(account accounts.Account, mimeType string, data []byte
 		w.hub.commsLock.Unlock()
 	}()
 	// Sign the transaction
-	signature, err := w.driver.SignTypedMessage(path, data[2:34], data[34:66])
+	signature, err := w.driver.SignTypedMessage(path, data[34:66], data[2:34])
 	if err != nil {
 		return nil, err
 	}
@@ -632,7 +632,7 @@ func (w *wallet) SignTx(account accounts.Account, tx *types.Transaction, chainID
 // data is not supported for Ledger wallets, so this method will always return
 // an error.
 func (w *wallet) SignTextWithPassphrase(account accounts.Account, passphrase string, text []byte) ([]byte, error) {
-	return w.SignText(account, accounts.TextHash(text))
+	return w.SignText(account, text)
 }
 
 // SignTxWithPassphrase implements accounts.Wallet, attempting to sign the given
